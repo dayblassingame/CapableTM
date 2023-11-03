@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "react-datepicker": "^4.21.0",
     "react-icons": "^4.11.0",
     "style-loader": "^3.3.3"
   },
