@@ -3,6 +3,7 @@ import './App.scss'
 import Task from "./Task";
 import NewTaskModal from "./NewTaskModal";
 
+//displays agile board
 export function App({taskProp}){    
     const stages = [
         {
@@ -25,6 +26,7 @@ export function App({taskProp}){
     const [tasks, setTasks] = useState([]);
     const [id, setId] = useState(0);
 
+    //load initial saved task board
     useEffect(()=>{
         let taskList = []
         taskProp.forEach((task, i) =>{
@@ -35,12 +37,14 @@ export function App({taskProp}){
         setId(taskList.length)
     }, [])
 
-    const submitNewTask =(e)=>{
+    //function to add new Task to list and then hide form
+    const submitNewTask =(e, clearForm)=>{
         e.preventDefault();
 
         const timezone = new Date().getTimezoneOffset();
         const date = new Date(e.target.date.value);
 
+        //adjust date to account for timezone, add new task info & store in state array
         const newTask = {
             name: e.target.name.value,
             details: e.target.details.value,
@@ -51,6 +55,15 @@ export function App({taskProp}){
         }
         setId(id+1);
         setTasks([...tasks, newTask])
+
+        //clear information from form fields
+        clearForm();
+        
+        //hide form display new task btn
+        const modal = document.getElementById('newTaskModal');
+        modal.classList.add('display-none');
+        const newTaskBtn = document.getElementById('newTaskBtn');
+        newTaskBtn.classList.remove('display-none');   
     }
 
     return(

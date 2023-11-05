@@ -8,9 +8,15 @@ export default function NewTaskModal(props){
         return (initialDate.getFullYear() + '-' + initialDate.getMonth() + '-' + (initialDate.getDate() < 10 ? ('0'+initialDate.getDate()) : initialDate.getDate()))
     });
 
+    const clearForm = () =>{
+        setName('')
+        setDetails('')
+        setDate(new Date())
+    }
+
     return(
         <div id='newTaskModal' className='display-none'>
-            <form onSubmit={(props.submit)}>
+            <form onSubmit={(e)=> props.submit(e, clearForm)}>
                 <span>
                     <label><b>Task Name</b></label>
                     <input required type='text' name='name' value={name} onChange={(e)=>setName(e.target.value)}/>
