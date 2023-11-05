@@ -7,13 +7,6 @@ export default function Task(props){
     let date = props.date;
     let stage = props.stage;
 
-    const formatDate = (date) =>{
-        const month= date.getMonth();
-        const day = date.getDay();
-        const year = date.getFullYear();
-
-        return(month + "/" + day + "/" + year.toString().slice(2));
-    }
     return(
         <li key={id}> 
             <span>
@@ -28,4 +21,12 @@ export default function Task(props){
             </span>
         </li>
     );
+}
+
+export function formatDate(date){
+    const month= date.getMonth();
+    const day = date.getDay();
+    const year = date.getFullYear();
+
+    return(month + "/" + day + "/" + year.toString().slice(2));
 }

@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './App.scss'
 import Task from "./Task";
+import NewTaskModal from "./NewTaskModal";
 
-export function App({taskProp}){
-    let id = 0;
+export function App({taskProp}){    
     const stages = [
         {
             name: 'To-do',
@@ -22,20 +22,49 @@ export function App({taskProp}){
             accordion: true,
         }
     ]
+    const [tasks, setTasks] = useState([]);
+    const [id, setId] = useState(0);
 
-    let taskList = []
-    taskProp.forEach((task) =>{
-        task.id = id;
-        taskList = [...taskList, task];
-        id++;
-    })
-    const [tasks, setTasks] = useState(taskList);
+    useEffect(()=>{
+        let taskList = []
+        taskProp.forEach((task, i) =>{
+            task.id = i;
+            taskList = [...taskList, task];
+        })
+        setTasks([...taskList])
+        setId(taskList.length)
+    }, [])
+
+    const submitNewTask =(e)=>{
+        e.preventDefault();
+
+        const timezone = new Date().getTimezoneOffset();
+        const date = new Date(e.target.date.value);
+
+        const newTask = {
+            name: e.target.name.value,
+            details: e.target.details.value,
+            currentStage: 0,
+            id: id,
+            key: id,
+            dueDate: (new Date(date.getTime()+timezone*60000))
+        }
+        setId(id+1);
+        setTasks([...tasks, newTask])
+    }
 
     return(
         <main id='main' className='ctm-main-dashboard'>
             <span className="ctm-newTaskContainer">
-                <button id='newTask'> Add New Task</button>
+                <button id='newTaskBtn' 
+                onClick={(()=>{
+                    const modal = document.getElementById('newTaskModal');
+                    modal.classList.remove('display-none');
+                    const newTaskBtn = document.getElementById('newTaskBtn');
+                    newTaskBtn.classList.add('display-none');
+                })}> Add New Task</button>
             </span>
+            <NewTaskModal submit={submitNewTask}/>
             <span >
 
             </span>
