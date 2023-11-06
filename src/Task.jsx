@@ -7,6 +7,12 @@ export default function Task(props){
     let date = props.date;
     let stage = props.stage;
 
+    const handler = (e) =>{
+        e.target.name == ('prev') ?
+        props.handlePrev(stage, id) :
+        props.handleNext(stage, id)
+    }
+
     return(
         <li key={id}> 
             <span>
@@ -16,16 +22,16 @@ export default function Task(props){
             </span>
             <span>
                 <p>{formatDate(date)}</p>
-                <button id='prev'>{'<<'}</button>
-                <button id='next'>{'>>'}</button>
+                <button id='prev' name='prev' onClick={handler}>{'<<'}</button>
+                <button id='next' name='next' onClick={handler}>{'>>'}</button>
             </span>
         </li>
     );
 }
 
-export function formatDate(date){
-    const month= date.getMonth();
-    const day = date.getDay();
+export function formatDate(date){    
+    const month= date.getMonth() + 1;
+   const day = date.getDate();
     const year = date.getFullYear();
 
     return(month + "/" + day + "/" + year.toString().slice(2));

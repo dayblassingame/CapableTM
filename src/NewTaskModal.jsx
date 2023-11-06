@@ -5,13 +5,16 @@ export default function NewTaskModal(props){
     const [details, setDetails] = useState('');
     const [date, setDate] = useState(()=>{
         const initialDate= new Date();
-        return (initialDate.getFullYear() + '-' + initialDate.getMonth() + '-' + (initialDate.getDate() < 10 ? ('0'+initialDate.getDate()) : initialDate.getDate()))
+        return (initialDate.getFullYear() + '-' + (initialDate.getMonth()+1) + '-' + (initialDate.getDate() < 10 ? ('0'+initialDate.getDate()) : initialDate.getDate()))
     });
 
     const clearForm = () =>{
         setName('')
         setDetails('')
-        setDate(new Date())
+        setDate(()=>{
+            const initialDate= new Date();
+            return (initialDate.getFullYear() + '-' + (initialDate.getMonth()+1) + '-' + (initialDate.getDate() < 10 ? ('0'+initialDate.getDate()) : initialDate.getDate()))
+        })
     }
 
     return(
@@ -27,7 +30,8 @@ export default function NewTaskModal(props){
                 </span>
                 <span>
                     <label><b>Due Date</b></label>
-                    <input required type='date' name='date' value={date} onChange={(e) => setDate(e.target.value)}/>
+                    <input required type='date' name='date' 
+                    min={new Date()} value={date} onChange={(e) => setDate(e.target.value)}/>
                 </span>
                 <button type='submit'>Finish</button>
             </form>

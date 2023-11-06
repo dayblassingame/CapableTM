@@ -53,17 +53,44 @@ export function App({taskProp}){
             key: id,
             dueDate: (new Date(date.getTime()+timezone*60000))
         }
+
         setId(id+1);
         setTasks([...tasks, newTask])
 
         //clear information from form fields
         clearForm();
-        
+
         //hide form display new task btn
         const modal = document.getElementById('newTaskModal');
         modal.classList.add('display-none');
         const newTaskBtn = document.getElementById('newTaskBtn');
         newTaskBtn.classList.remove('display-none');   
+    }
+
+    const handlePrev = (stage, id) =>{
+        const taskToMove = tasks.find((a) => a.id == id);
+        let tempTasks =[...tasks];
+
+        tempTasks = tempTasks.filter((task)=>
+            task.id !== id
+        )
+
+        taskToMove.currentStage = stage - 1;
+        tempTasks.push(taskToMove)
+        setTasks([...tempTasks])
+    }
+
+    const handleNext = (stage, id) =>{
+        const taskToMove = tasks.find((a) => a.id == id);
+        let tempTasks =[...tasks];
+
+        tempTasks = tempTasks.filter((task)=>
+            task.id !== id
+        )
+
+        taskToMove.currentStage = stage + 1;
+        tempTasks.push(taskToMove)
+        setTasks([...tempTasks])
     }
 
     return(
@@ -99,6 +126,8 @@ export function App({taskProp}){
                                                     details={task.details}
                                                     date={task.dueDate}
                                                     stage={task.currentStage}
+                                                    handlePrev={handlePrev}
+                                                    handleNext={handleNext}
                                                  />
                                             )
                                         })
