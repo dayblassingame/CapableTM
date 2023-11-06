@@ -32,8 +32,8 @@ export default function Task(props){
             </span>
             <span>
                 <p>{formatDate(date)}</p>
-                <button id='prev' name='prev' onClick={handler}>{'<<'}</button>
-                <button id='next' name='next' onClick={handler}>{'>>'}</button>
+                <button id='prev' name='prev' disabled={stage === 0 ? true: false} onClick={handler}>{'<<'}</button>
+                <button id='next' name='next' disabled={stage === 3? true: false} onClick={handler}>{'>>'}</button>
             </span>
         </li>
     );
