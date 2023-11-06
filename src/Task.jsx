@@ -27,7 +27,7 @@ export default function Task(props){
         <li key={id}> 
             <span>
                 <label>{name}</label>
-                <button id='delete' name='delete' onClick={handler}>X</button>
+                <button id='delete' name='delete' autocomplete='off' onClick={handler}>X</button>
                 <p>{details}</p>
             </span>
             <span>

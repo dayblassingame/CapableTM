@@ -66,6 +66,7 @@ export function App({taskProp}){
         const newTaskBtn = document.getElementById('newTaskBtn');
         newTaskBtn.classList.remove('display-none');   
     }
+    
     //move task to previous stage
     const taskHandler = (stage, id, operation) =>{
 

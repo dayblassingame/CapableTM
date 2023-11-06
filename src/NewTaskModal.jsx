@@ -19,6 +19,15 @@ export default function NewTaskModal(props){
         })
     }
 
+    const handleCancel = () =>{
+        clearForm();
+
+        const modal = document.getElementById('newTaskModal');
+        modal.classList.add('display-none');
+        const newTaskBtn = document.getElementById('newTaskBtn');
+        newTaskBtn.classList.remove('display-none'); 
+    }
+
     return(
         <div id='newTaskModal' className='display-none'>
             <form onSubmit={(e)=> props.submit(e, clearForm)}>
@@ -35,6 +44,7 @@ export default function NewTaskModal(props){
                     <input required type='date' name='date' 
                     min={new Date()} value={date} onChange={(e) => setDate(e.target.value)}/>
                 </span>
+                <button type='button' onClick={handleCancel}>Cancel</button>
                 <button type='submit'>Finish</button>
             </form>
         </div>
