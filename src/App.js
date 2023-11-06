@@ -66,8 +66,9 @@ export function App({taskProp}){
         const newTaskBtn = document.getElementById('newTaskBtn');
         newTaskBtn.classList.remove('display-none');   
     }
+    //move task to previous stage
+    const taskHandler = (stage, id, operation) =>{
 
-    const handlePrev = (stage, id) =>{
         const taskToMove = tasks.find((a) => a.id == id);
         let tempTasks =[...tasks];
 
@@ -75,24 +76,19 @@ export function App({taskProp}){
             task.id !== id
         )
 
-        taskToMove.currentStage = stage - 1;
-        tempTasks.push(taskToMove)
+        switch(operation){
+            case 'prev':
+                taskToMove.currentStage = stage - 1;
+                tempTasks.push(taskToMove)
+                break;
+            case 'next':
+                taskToMove.currentStage = stage + 1;
+                tempTasks.push(taskToMove)
+                break;
+        }
         setTasks([...tempTasks])
     }
-
-    const handleNext = (stage, id) =>{
-        const taskToMove = tasks.find((a) => a.id == id);
-        let tempTasks =[...tasks];
-
-        tempTasks = tempTasks.filter((task)=>
-            task.id !== id
-        )
-
-        taskToMove.currentStage = stage + 1;
-        tempTasks.push(taskToMove)
-        setTasks([...tempTasks])
-    }
-
+    
     return(
         <main id='main' className='ctm-main-dashboard'>
             <span className="ctm-newTaskContainer">
@@ -126,8 +122,7 @@ export function App({taskProp}){
                                                     details={task.details}
                                                     date={task.dueDate}
                                                     stage={task.currentStage}
-                                                    handlePrev={handlePrev}
-                                                    handleNext={handleNext}
+                                                    taskHandler={taskHandler}
                                                  />
                                             )
                                         })

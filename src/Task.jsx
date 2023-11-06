@@ -1,5 +1,6 @@
 import React from "react";
 
+//formats task array objects into task components
 export default function Task(props){
     const id = props.id;
     const name = props.name;
@@ -8,16 +9,25 @@ export default function Task(props){
     let stage = props.stage;
 
     const handler = (e) =>{
-        e.target.name == ('prev') ?
-        props.handlePrev(stage, id) :
-        props.handleNext(stage, id)
+
+        switch(e.target.name){
+            case 'prev':
+                props.taskHandler(stage, id, 'prev')
+                break;
+            case 'next':
+                props.taskHandler(stage, id, 'next')
+                break;
+            case 'delete':
+                props.taskHandler(stage, id, 'del')
+                break;
+            }
     }
 
     return(
         <li key={id}> 
             <span>
                 <label>{name}</label>
-                <button id='delete'>X</button>
+                <button id='delete' name='delete' onClick={handler}>X</button>
                 <p>{details}</p>
             </span>
             <span>

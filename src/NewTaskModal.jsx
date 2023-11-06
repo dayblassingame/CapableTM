@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+//modal for user to enter new task
 export default function NewTaskModal(props){
     const [name, setName] = useState('');
     const [details, setDetails] = useState('');
@@ -8,6 +9,7 @@ export default function NewTaskModal(props){
         return (initialDate.getFullYear() + '-' + (initialDate.getMonth()+1) + '-' + (initialDate.getDate() < 10 ? ('0'+initialDate.getDate()) : initialDate.getDate()))
     });
 
+    //reset form fields
     const clearForm = () =>{
         setName('')
         setDetails('')
