@@ -1,0 +1,28 @@
+.ctm-C-button{
+    margin: 0px;
+    padding: $padding-none $padding-extra-small;
+    height: 1.1rem;
+    width: auto;
+    background-color: $blue;
+    border: 1px solid white;
+    border-radius: 5px;
+
+    text-align: center;
+    font-size: 10px;
+    color: white; 
+
+    transition: border-color 1s, border-width 2s;
+    transition: all .5s ease-in-out;
+
+    &:hover{
+        background-color: white;
+        color: $blue;
+        border-color: $blue;
+        border-width: 1px;
+    }
+    &:disabled{
+        background-color: $light-grey;
+        color: $grey;
+        border-color: grey;
+    }
+}

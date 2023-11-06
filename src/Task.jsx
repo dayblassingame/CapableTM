@@ -27,13 +27,13 @@ export default function Task(props){
         <li key={id}> 
             <span>
                 <label>{name}</label>
-                <button id='delete' name='delete' autocomplete='off' onClick={handler}>X</button>
+                <button id='delete' name='delete'  className="ctm-C-button" autocomplete='off' onClick={handler}>X</button>
                 <p>{details}</p>
             </span>
             <span>
                 <p>{formatDate(date)}</p>
-                <button id='prev' name='prev' disabled={stage === 0 ? true: false} onClick={handler}>{'<<'}</button>
-                <button id='next' name='next' disabled={stage === 3? true: false} onClick={handler}>{'>>'}</button>
+                <button id='prev' name='prev' className="ctm-C-button" disabled={stage === 0 ? true: false} onClick={handler}>{'<<'}</button>
+                <button id='next' name='next'  className="ctm-C-button" disabled={stage === 3? true: false} onClick={handler}>{'>>'}</button>
             </span>
         </li>
     );

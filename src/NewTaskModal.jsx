@@ -44,8 +44,8 @@ export default function NewTaskModal(props){
                     <input required type='date' name='date' 
                     min={new Date()} value={date} onChange={(e) => setDate(e.target.value)}/>
                 </span>
-                <button type='button' onClick={handleCancel}>Cancel</button>
-                <button type='submit'>Finish</button>
+                <button type='button'  className="ctm-C-button" onClick={handleCancel}>Cancel</button>
+                <button type='submit'  className="ctm-C-button" >Finish</button>
             </form>
         </div>
     )

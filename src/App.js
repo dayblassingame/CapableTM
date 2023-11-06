@@ -59,14 +59,14 @@ export function App({taskProp}){
 
         //clear information from form fields
         clearForm();
-
+        
         //hide form display new task btn
         const modal = document.getElementById('newTaskModal');
         modal.classList.add('display-none');
         const newTaskBtn = document.getElementById('newTaskBtn');
         newTaskBtn.classList.remove('display-none');   
     }
-    
+
     //move task to previous stage
     const taskHandler = (stage, id, operation) =>{
 
