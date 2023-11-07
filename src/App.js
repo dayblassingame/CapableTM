@@ -59,7 +59,7 @@ export function App({taskProp}){
 
         //clear information from form fields
         clearForm();
-        
+
         //hide form display new task btn
         const modal = document.getElementById('newTaskModal');
         modal.classList.add('display-none');
@@ -91,51 +91,50 @@ export function App({taskProp}){
     }
     
     return(
-        <main id='main' className='ctm-main-dashboard'>
-            <span className="ctm-newTaskContainer">
-                <button id='newTaskBtn' 
-                onClick={(()=>{
-                    const modal = document.getElementById('newTaskModal');
-                    modal.classList.remove('display-none');
-                    const newTaskBtn = document.getElementById('newTaskBtn');
-                    newTaskBtn.classList.add('display-none');
-                })}> Add New Task</button>
-            </span>
-            <NewTaskModal submit={submitNewTask}/>
-            <span >
+        <div className="ctm-L-wrapper">
+            <main id='main' className='ctm-L-tasklistsContainer' >
+                <span className="ctm-newTaskContainer">
+                    <button id='newTaskBtn' 
+                    onClick={(()=>{
+                        const modal = document.getElementById('newTaskModal');
+                        modal.classList.remove('display-none');
+                        const newTaskBtn = document.getElementById('newTaskBtn');
+                        newTaskBtn.classList.add('display-none');
+                    })}> Add New Task</button>
+                </span>
+                <NewTaskModal submit={submitNewTask}/>
+                <span className="ctm-L-tasklistsContainer">
+                        {stages.map((stage, index) => {
+                            return(
+                                <ul className='ctm-L-tasklist' key={stage+index}>
+                                    <label className="ctm-L-taskListHeading"><b>{stage.name}</b></label>
+                                    <span id={stage.name +'li'} >
+                                        {
+                                            tasks.map((task) =>{
+                                                if(task.currentStage !== index)
+                                                    return;
+                                                return(
+                                                    <Task
+                                                        key={task.id}
+                                                        id={task.id}
+                                                        name={task.name}
+                                                        details={task.details}
+                                                        date={task.dueDate}
+                                                        stage={task.currentStage}
+                                                        taskHandler={taskHandler}
+                                                    />
+                                                )
+                                            })
+                                        }
+                                    </span>
+                                </ul>
+                            )
+                        })
+                        }
 
-            </span>
-            <span className="ctm-tasklistsContainer">
-                    {stages.map((stage, index) => {
-                        return(
-                            <ul key={stage+index}>
-                                <label>{stage.name}</label>
-                                <span id={stage.name +'li'} >
-                                    {
-                                        tasks.map((task) =>{
-                                            if(task.currentStage !== index)
-                                                return;
-                                            return(
-                                                <Task
-                                                    key={task.id}
-                                                    id={task.id}
-                                                    name={task.name}
-                                                    details={task.details}
-                                                    date={task.dueDate}
-                                                    stage={task.currentStage}
-                                                    taskHandler={taskHandler}
-                                                 />
-                                            )
-                                        })
-                                    }
-                                </span>
-                            </ul>
-                        )
-                    })
-                    }
+                </span>
 
-            </span>
-
-        </main>
+            </main>
+        </div>
     )
 }

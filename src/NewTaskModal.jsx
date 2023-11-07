@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './App.scss';
 
 //modal for user to enter new task
 export default function NewTaskModal(props){

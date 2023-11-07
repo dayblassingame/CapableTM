@@ -1,4 +1,6 @@
 import React from "react";
+import {AiOutlineClockCircle} from 'react-icons/ai';
+import './App.scss';
 
 //formats task array objects into task components
 export default function Task(props){
@@ -9,7 +11,6 @@ export default function Task(props){
     let stage = props.stage;
 
     const handler = (e) =>{
-
         switch(e.target.name){
             case 'prev':
                 props.taskHandler(stage, id, 'prev')
@@ -24,16 +25,21 @@ export default function Task(props){
     }
 
     return(
-        <li key={id}> 
-            <span>
+        <li className='ctm-C-taskListItem' key={id}> 
+            <span className="ctm-C-listItemDisplay">
                 <label>{name}</label>
                 <button id='delete' name='delete'  className="ctm-C-button" autocomplete='off' onClick={handler}>X</button>
                 <p>{details}</p>
             </span>
-            <span>
-                <p>{formatDate(date)}</p>
-                <button id='prev' name='prev' className="ctm-C-button" disabled={stage === 0 ? true: false} onClick={handler}>{'<<'}</button>
-                <button id='next' name='next'  className="ctm-C-button" disabled={stage === 3? true: false} onClick={handler}>{'>>'}</button>
+            <span className="taskListBottomContainer">
+            <span className='clock'>
+                    <AiOutlineClockCircle className='icon'/>
+                    <p>{formatDate(date)}</p>
+                </span>
+                <span className="listItemControls">
+                    <button id='prev' name='prev' className="ctm-C-button" disabled={stage === 0 ? true: false} onClick={handler}>{'<<'}</button>
+                    <button id='next' name='next'  className="ctm-C-button" disabled={stage === 3? true: false} onClick={handler}>{'>>'}</button>
+                </span>
             </span>
         </li>
     );
