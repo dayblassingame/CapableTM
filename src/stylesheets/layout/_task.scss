@@ -52,7 +52,8 @@
             }
 
             .ctm-C-taskListItem{
-                padding: $padding-small $padding-none;
+                margin: $margin-small;
+                padding: $padding-small $padding-small;
                 display: block;
                 height: auto;
                 border: 1px solid white;
@@ -71,15 +72,18 @@
                         font-weight: 600;
                         font-size: 16px;
                         color: $dark-grey;
+                        margin: $margin-small;
                     }
 
                     button{
+                        margin: $margin-small $margin-small;
                         display: inline;
                         vertical-align: top;
                         float: right;
                     }
 
                     p{
+                        margin: $margin-medium;
                         padding: $padding-extra-small;
                         height: auto;
                         overflow-x: hidden;

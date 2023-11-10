@@ -43,7 +43,6 @@ export function App({taskProp}){
 
         const timezone = new Date().getTimezoneOffset();
         const date = new Date(e.target.date.value);
-
         //adjust date to account for timezone, add new task info & store in state array
         const newTask = {
             name: e.target.name.value,
@@ -94,10 +93,10 @@ export function App({taskProp}){
         <div className="ctm-L-wrapper">
             <main id='main' className='ctm-L-tasklistsContainer' >
                 <span className="ctm-newTaskContainer">
-                    <button id='newTaskBtn' 
+                    <button id='newTaskBtn' className="ctm-C-newTaskButton ctm-C-button"
                     onClick={(()=>{
                         const modal = document.getElementById('newTaskModal');
-                        modal.classList.remove('display-none');
+                        modal.classList.add('ctm-C-newTaskModalContainer');
                         const newTaskBtn = document.getElementById('newTaskBtn');
                         newTaskBtn.classList.add('display-none');
                     })}> Add New Task</button>

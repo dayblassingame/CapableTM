@@ -28,7 +28,7 @@ export default function Task(props){
         <li className='ctm-C-taskListItem' key={id}> 
             <span className="ctm-C-listItemDisplay">
                 <label>{name}</label>
-                <button id='delete' name='delete'  className="ctm-C-button" autocomplete='off' onClick={handler}>X</button>
+                <button id='delete' name='delete'  className="ctm-C-button" onClick={handler}>X</button>
                 <p>{details}</p>
             </span>
             <span className="taskListBottomContainer">

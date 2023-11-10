@@ -1,0 +1,46 @@
+.ctm-C-newTaskButton{
+
+}
+.ctm-C-newTaskModalContainer{
+    margin: auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+
+    height: 15rem;
+    width: 30rem;
+    z-index: 1;
+
+    border-radius: 5px;
+    border: 3.5px solid $blue;
+
+    background-color: white;
+
+    form{
+        display: block;
+        margin: auto;
+        text-align: left;
+        padding: $padding-medium;
+
+        span{
+            display: block;
+            margin: $margin-small;
+
+            p{
+                display:block;
+            }
+
+            input{
+                margin: $margin-small;
+                height: 2rem;
+                display: inline;
+                width: auto;
+            }
+        }
+
+        
+    }
+    
+}
