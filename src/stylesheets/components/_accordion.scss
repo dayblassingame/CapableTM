@@ -1,0 +1,21 @@
+.accordionOpen{    
+    display: none;
+
+    @media screen and (max-width: $max-device-width){
+        display: inline;
+        vertical-align: middle;
+        float: right;
+    
+        color: black;
+        background-color: transparent;
+        border: none
+    }
+
+    &:focus{
+        border: 1px, solid, white;
+    }
+        
+}
+.accordionClosed{
+    transform:rotate( 180deg);
+}

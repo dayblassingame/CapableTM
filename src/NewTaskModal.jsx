@@ -46,21 +46,24 @@ export default function NewTaskModal(props){
         <div id='newTaskModal' className='display-none'>
             <form onSubmit={authenticate}>
                 <span>
-                    <label><b>Task Name</b></label>
+                    <label> Task Name </label>
                     <input required type='text' name='name' value={name} autoComplete='off' maxLength='40' onChange={(e)=>setName(e.target.value)}/>
                 </span>
                 <span>
-                    <label><b>Description</b></label>
-                    <input required type='text' name='details' value={details} autoComplete='off' maxLength='300' onChange={(e)=>setDetails(e.target.value)}/>
+                    <label> Due Date </label>
+                    <input type='date' name='date' className="date" 
+                    required min={new Date()} value={date} onChange={(e) => setDate(e.target.value)}/>
+                    <p id='dateError' className="error">{error}</p>
+ 
                 </span>
                 <span>
-                    <p id='dateError' className="error">{error}</p>
-                    <label><b>Due Date</b></label>
-                    <input type='date' name='date' 
-                    required min={new Date()} value={date} onChange={(e) => setDate(e.target.value)}/>
+                    <label> Description </label>
+                    <textarea name = 'details' value={details} autoComplete='off' maxLength='300' onChange={(e)=>setDetails(e.target.value)}/>
                 </span>
-                <button type='button'  className="ctm-C-button" onClick={clearForm}>Cancel</button>
-                <button type='submit'  className="ctm-C-button" >Finish</button>
+                <span className="newTaskModalControls" >
+                    <button type='button'  className="ctm-C-button" onClick={clearForm}>Cancel</button>
+                    <button type='submit'  className="ctm-C-button" >Finish</button>
+                </span>
             </form>
         </div>
     )

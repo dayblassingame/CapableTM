@@ -1,5 +1,11 @@
-.ctm-C-newTaskButton{
+.ctm-C-newTaskContainer{
+    display: block;
 
+    .ctm-C-newTaskButton{
+        height: 2.5rem;
+        width: 8rem;
+        font-size: 14px;
+    }
 }
 .ctm-C-newTaskModalContainer{
     margin: auto;
@@ -8,6 +14,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     display: block;
+    overflow: hidden;
 
     height: 15rem;
     width: 30rem;
@@ -18,11 +25,21 @@
 
     background-color: white;
 
+    @media screen and (max-width: $max-device-width){
+        width: 20rem;
+        height: 15rem;
+    }
+
     form{
         display: block;
         margin: auto;
         text-align: left;
         padding: $padding-medium;
+
+        .newTaskModalControls{
+            padding-top: $padding-small;
+            text-align: center;
+        }
 
         span{
             display: block;
@@ -30,13 +47,71 @@
 
             p{
                 display:block;
+                margin: $margin-small $margin-none;
+            }
+
+            .error{
+                text-align: center;
+                font-size: 13px;
+                color: red;
+            }
+
+            label{
+                margin: $margin-small $margin-medium;
+                
+                display: inline-block;
+                vertical-align: top;
+
+                font-family: $font-family;
+                font-size: 15px;
+                color: $dark-grey;
+
             }
 
             input{
-                margin: $margin-small;
-                height: 2rem;
+                margin: $margin-small $margin-small;
+                padding: $padding-extra-small;
+                height: 1.5rem;                
                 display: inline;
-                width: auto;
+                width: 11rem;
+                vertical-align: top;
+
+                border:1px solid $grey;
+                border-radius: 5px;
+                font-family: $font-family;
+                color: $dark-grey;
+
+                &:focus{
+                    outline: 1px solid $blue;
+                    box-shadow: 0 0 5px $blue;
+                }
+            }
+
+            .date{
+                margin-left: 15px;
+                text-align: center;
+                color: $dark-grey;
+            }
+
+            textarea{
+                margin: $margin-small $margin-small;
+                padding: $padding-extra-small;
+                display: inline;
+                height: 4rem;
+                width: 11rem;
+                vertical-align: top;
+
+                border:1px solid $grey;
+                border-radius: 5px;
+
+                font-family: $font-family;
+                color: $dark-grey;
+
+                &:focus{
+                    outline: 1px solid $blue;
+                    box-shadow: 0 0 5px $blue;
+                }
+
             }
         }
 
