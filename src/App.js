@@ -32,7 +32,8 @@ export function App({taskProp}){
 
     //load initial saved task board
     useEffect(()=>{
-        let tempStageList = [...stages];
+        try{
+            let tempStageList = [...stages];
 
         taskProp.forEach((task, i) => {
             task.id = i;
@@ -41,7 +42,9 @@ export function App({taskProp}){
 
         setId(taskProp.length)
         setStages([...tempStageList])
-
+        }catch(err){
+            console.log('cannot load saved tasks')
+        }
     }, [])
 
     //function to add new Task to list and then hide form

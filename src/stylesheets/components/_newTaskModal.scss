@@ -73,7 +73,7 @@
                 padding: $padding-extra-small;
                 height: 1.5rem;                
                 display: inline;
-                width: 11rem;
+                width: 17rem;
                 vertical-align: top;
 
                 border:1px solid $grey;
@@ -84,6 +84,10 @@
                 &:focus{
                     outline: 1px solid $blue;
                     box-shadow: 0 0 5px $blue;
+                }
+
+                @media screen and (max-width: $max-device-width) {
+                    width: 11rem;
                 }
             }
 
@@ -98,7 +102,7 @@
                 padding: $padding-extra-small;
                 display: inline;
                 height: 4rem;
-                width: 11rem;
+                width: 17rem;
                 vertical-align: top;
 
                 border:1px solid $grey;
@@ -110,6 +114,10 @@
                 &:focus{
                     outline: 1px solid $blue;
                     box-shadow: 0 0 5px $blue;
+                }
+
+                @media screen and (max-width: $max-device-width) {
+                    width: 11rem;
                 }
 
             }
