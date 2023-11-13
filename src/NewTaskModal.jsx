@@ -10,7 +10,8 @@ export default function NewTaskModal(props){
         return (initialDate.getFullYear() + '-' + (initialDate.getMonth()+1) + '-' + (initialDate.getDate() < 10 ? ('0'+initialDate.getDate()) : initialDate.getDate()))
     });
     const [error, setError] = useState('')
-    //reset form fields
+
+    //reset form fields when modal is submitted or canceled
     const clearForm = () =>{
         setName('')
         setDetails('')
@@ -19,12 +20,19 @@ export default function NewTaskModal(props){
             return (initialDate.getFullYear() + '-' + (initialDate.getMonth()+1) + '-' + (initialDate.getDate() < 10 ? ('0'+initialDate.getDate()) : initialDate.getDate()))
         })
 
+        //hide modal and display add task button
         const modal = document.getElementById('newTaskModal');
         modal.classList.remove('ctm-C-newTaskModalContainer');
+
         const newTaskBtn = document.getElementById('newTaskBtn');
         newTaskBtn.classList.remove('display-none');
+
+        //make background active when modal is inactive
+        const overlay = document.getElementById('overlay');
+        overlay.classList.remove('overlay');
     }
 
+    //verify date has not yet passed
     const authenticate = (e) => {
         e.preventDefault();
         try{

@@ -89,6 +89,7 @@ export function App({taskProp}){
 
         const taskToMove = stages[stage].tasks.find((a) => a.id == id);
 
+        //delete or move item to next or prev column based on user click
         setStages(stages.map((item, index) => {
             if(index == stage){
                 return{
@@ -112,52 +113,59 @@ export function App({taskProp}){
                 <span className="ctm-C-newTaskContainer">
                     <button id='newTaskBtn' className="ctm-C-button ctm-C-newTaskButton"
                     onClick={(()=>{
+                        //show modal and hide new Task Button
                         const modal = document.getElementById('newTaskModal');
                         modal.classList.add('ctm-C-newTaskModalContainer');
+
                         const newTaskBtn = document.getElementById('newTaskBtn');
                         newTaskBtn.classList.add('display-none');
+
+                        //background inactive when modal is active
+                        const overlay = document.getElementById('overlay');
+                        overlay.classList.add('overlay');
                     })}> Add New Task</button>
                 </span>
                 <NewTaskModal submit={submitNewTask}/>
-                <span className="ctm-L-tasklistsContainer">
-                        {stages.map((stage, index) => {
-                            return(
-                                <ul className='ctm-L-tasklist' key={stage+index}>
-                                    <label className="ctm-L-taskListHeading"><b>{stage.name}</b></label>
-                                    <button id={stage.name+'Accordion'} disabled={stage.tasks.length==0} className={stage.accordion ? 'ctm-C-button accordionOpen' : 'ctm-C-button accordionOpen accordionClosed'}
-                                    onClick={()=>setStages(stages.map(item=>{
-                                        if(item.name == stage.name)
-                                            return {...item, accordion: !item.accordion}
-                                        else
-                                            return item;
-                                    }))
+                <div id='overlay'>
+                    <span className="ctm-L-tasklistsContainer">
+                            {stages.map((stage, index) => {
+                                return(
+                                    <ul className='ctm-L-tasklist' key={stage+index}>
+                                        <label className="ctm-L-taskListHeading"><b>{stage.name}</b></label>
+                                        <button id={stage.name+'Accordion'} disabled={stage.tasks.length==0} className={stage.accordion ? 'ctm-C-button accordionOpen' : 'ctm-C-button accordionOpen accordionClosed'}
+                                        onClick={()=>setStages(stages.map(item=>{
+                                            if(item.name == stage.name)
+                                                return {...item, accordion: !item.accordion}
+                                            else
+                                                return item;
+                                        }))
 
-                                    }><BsChevronUp/></button>
-                                    <span 
-                                    id={stage.name +'li'} className={stage.accordion ? '':'display-none'}>
-                                        {
-                                            stage.tasks.map((task) =>{
-                                                return(
-                                                    <Task
-                                                        key={task.id}
-                                                        id={task.id}
-                                                        name={task.name}
-                                                        details={task.details}
-                                                        date={task.dueDate}
-                                                        stage={task.currentStage}
-                                                        taskHandler={taskHandler}
-                                                    />
-                                                )
-                                            })
-                                        }
-                                    </span>
-                                </ul>
-                            )
-                        })
-                        }
+                                        }><BsChevronUp/></button>
+                                        <span 
+                                        id={stage.name +'li'} className={stage.accordion ? '':'display-none'}>
+                                            {
+                                                stage.tasks.map((task) =>{
+                                                    return(
+                                                        <Task
+                                                            key={task.id}
+                                                            id={task.id}
+                                                            name={task.name}
+                                                            details={task.details}
+                                                            date={task.dueDate}
+                                                            stage={task.currentStage}
+                                                            taskHandler={taskHandler}
+                                                        />
+                                                    )
+                                                })
+                                            }
+                                        </span>
+                                    </ul>
+                                )
+                            })
+                            }
 
-                </span>
-
+                    </span>
+                </div>
             </main>
     )
 }
