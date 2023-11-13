@@ -2,39 +2,46 @@ import React, { useState, useEffect } from "react";
 import './App.scss'
 import Task from "./Task";
 import NewTaskModal from "./NewTaskModal";
+import {BsChevronUp} from 'react-icons/bs';
 
 //displays agile board
 export function App({taskProp}){    
-    const stages = [
-        {
+    const [stages, setStages] = useState([
+         {
             name: 'To-do',
             accordion: true,
+            tasks: [],
         },
         {
             name: 'In Progress',
             accordion: true,
+            tasks: [],
         },
         {
             name: 'Under Review',
             accordion: true,
+            tasks: [],
         },
         {
             name: 'Done',
             accordion: true,
+            tasks: [],
         }
-    ]
-    const [tasks, setTasks] = useState([]);
+    ]);
     const [id, setId] = useState(0);
 
     //load initial saved task board
     useEffect(()=>{
-        let taskList = []
-        taskProp.forEach((task, i) =>{
+        let tempStageList = [...stages];
+
+        taskProp.forEach((task, i) => {
             task.id = i;
-            taskList = [...taskList, task];
+            tempStageList[task.currentStage].tasks.push(task);
         })
-        setTasks([...taskList])
-        setId(taskList.length)
+
+        setId(taskProp.length)
+        setStages([...tempStageList])
+
     }, [])
 
     //function to add new Task to list and then hide form
@@ -53,9 +60,17 @@ export function App({taskProp}){
             dueDate: (new Date(date.getTime()+timezone*60000))
         }
 
+        //increment id for next new task
         setId(id+1);
-        setTasks([...tasks, newTask])
 
+        //add task to to-do list
+        let tempObject = {
+            name: stages[0].name,
+            accordion: stages[0].accordion
+        };
+        tempObject.tasks = [...stages[0].tasks, newTask];
+
+        setStages([tempObject, ...(stages.slice(1))]);
         //clear information from form fields
         clearForm();
 
@@ -66,34 +81,33 @@ export function App({taskProp}){
         newTaskBtn.classList.remove('display-none');   
     }
 
-    //move task to previous stage
+    //delete or move tasks to prev or next column
     const taskHandler = (stage, id, operation) =>{
 
-        const taskToMove = tasks.find((a) => a.id == id);
-        let tempTasks =[...tasks];
+        const taskToMove = stages[stage].tasks.find((a) => a.id == id);
 
-        tempTasks = tempTasks.filter((task)=>
-            task.id !== id
-        )
-
-        switch(operation){
-            case 'prev':
-                taskToMove.currentStage = stage - 1;
-                tempTasks.push(taskToMove)
-                break;
-            case 'next':
-                taskToMove.currentStage = stage + 1;
-                tempTasks.push(taskToMove)
-                break;
-        }
-        setTasks([...tempTasks])
+        setStages(stages.map((item, index) => {
+            if(index == stage){
+                return{
+                    ...item,
+                    tasks: stages[stage].tasks.filter(a => a.id != id)
+                }
+            }else if(index == stage+operation){
+                taskToMove.currentStage = stage + operation;
+                return{
+                    ...item,
+                    tasks: [...stages[index].tasks, taskToMove]
+                }
+            }else{
+                return item
+            }
+        }))
     }
     
     return(
-        <div className="ctm-L-wrapper">
-            <main id='main' className='ctm-L-tasklistsContainer' >
-                <span className="ctm-newTaskContainer">
-                    <button id='newTaskBtn' className="ctm-C-newTaskButton ctm-C-button"
+        <main className="ctm-L-wrapper">
+                <span className="ctm-C-newTaskContainer">
+                    <button id='newTaskBtn' className="ctm-C-button ctm-C-newTaskButton"
                     onClick={(()=>{
                         const modal = document.getElementById('newTaskModal');
                         modal.classList.add('ctm-C-newTaskModalContainer');
@@ -107,11 +121,19 @@ export function App({taskProp}){
                             return(
                                 <ul className='ctm-L-tasklist' key={stage+index}>
                                     <label className="ctm-L-taskListHeading"><b>{stage.name}</b></label>
-                                    <span id={stage.name +'li'} >
+                                    <button id={stage.name+'Accordion'} disabled={stage.tasks.length==0} className={stage.accordion ? 'ctm-C-button accordionOpen' : 'ctm-C-button accordionOpen accordionClosed'}
+                                    onClick={()=>setStages(stages.map(item=>{
+                                        if(item.name == stage.name)
+                                            return {...item, accordion: !item.accordion}
+                                        else
+                                            return item;
+                                    }))
+
+                                    }><BsChevronUp/></button>
+                                    <span 
+                                    id={stage.name +'li'} className={stage.accordion ? '':'display-none'}>
                                         {
-                                            tasks.map((task) =>{
-                                                if(task.currentStage !== index)
-                                                    return;
+                                            stage.tasks.map((task) =>{
                                                 return(
                                                     <Task
                                                         key={task.id}
@@ -134,6 +156,5 @@ export function App({taskProp}){
                 </span>
 
             </main>
-        </div>
     )
 }

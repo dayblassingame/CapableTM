@@ -13,13 +13,13 @@ export default function Task(props){
     const handler = (e) =>{
         switch(e.target.name){
             case 'prev':
-                props.taskHandler(stage, id, 'prev')
+                props.taskHandler(stage, id, -1)
                 break;
             case 'next':
-                props.taskHandler(stage, id, 'next')
+                props.taskHandler(stage, id, 1)
                 break;
             case 'delete':
-                props.taskHandler(stage, id, 'del')
+                props.taskHandler(stage, id, 0)
                 break;
             }
     }

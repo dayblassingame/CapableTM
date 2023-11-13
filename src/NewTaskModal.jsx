@@ -37,7 +37,7 @@ export default function NewTaskModal(props){
                 props.submit(e, clearForm); 
                 return; 
             }
-            setError('Due date cannot be in the past.')
+            setError('Due date must be in the future.')
         }catch(err){
             console.log('cannot compare times');
         }
@@ -54,7 +54,7 @@ export default function NewTaskModal(props){
                     <input required type='text' name='details' value={details} autoComplete='off' maxLength='300' onChange={(e)=>setDetails(e.target.value)}/>
                 </span>
                 <span>
-                    <p id='dateError'>{error}</p>
+                    <p id='dateError' className="error">{error}</p>
                     <label><b>Due Date</b></label>
                     <input type='date' name='date' 
                     required min={new Date()} value={date} onChange={(e) => setDate(e.target.value)}/>
